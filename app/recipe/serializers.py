@@ -21,3 +21,9 @@ class RecipeDetailSerializer(RecipeSerializer):
 
     class Meta(RecipeSerializer.Meta):
         fields = RecipeSerializer.Meta.fields + ["description"]
+
+    def validate(self, attrs):
+        """Validate the serializer data."""
+        if "user" in self.initial_data:
+            raise serializers.ValidationError("User cannot be updated.")
+        return attrs
