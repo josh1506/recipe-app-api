@@ -4,7 +4,7 @@ Serializer for recipe APIs.
 
 from rest_framework import serializers
 
-from core.models import Recipe
+from core.models import Recipe, Tag
 
 
 class RecipeSerializer(serializers.ModelSerializer):
@@ -27,3 +27,12 @@ class RecipeDetailSerializer(RecipeSerializer):
         if "user" in self.initial_data:
             raise serializers.ValidationError("User cannot be updated.")
         return attrs
+
+
+class TagSerializer(serializers.ModelSerializer):
+    """Serializer for tag objects."""
+
+    class Meta:
+        model = Tag
+        fields = ["id", "name"]
+        read_only_fields = ["id"]
